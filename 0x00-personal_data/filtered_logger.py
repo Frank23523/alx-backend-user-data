@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-This module contains a custom formatter for redacting sensitive
-information in log messages
-"""
+"""filtered_logger.py"""
 
 import logging
 import re
