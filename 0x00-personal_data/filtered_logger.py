@@ -79,3 +79,25 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     )
 
     return connection
+
+
+def main() -> None:
+    """
+    Retrieves all rows from the users table and
+    displays them with filtered PII fields.
+    """
+    logger = get_logger()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users;")
+
+    for row in cursor:
+        message = '; '.join(f"{k}={v}" for k, v in row.items()) + ';'
+        logger.info(message)
+
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
