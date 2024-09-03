@@ -9,7 +9,7 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-        Returns False - path and excluded_paths will be used later
+        Returns True if the path is not in the list of strings excluded_paths
         """
         if path is None:
             return True
@@ -27,9 +27,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """
-        Returns None - request will be the Flask request object
+        Returns the Authorization header from the request
         """
-        return None
+        if request is None:
+            return None
+
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
